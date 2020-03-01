@@ -12,18 +12,18 @@ struct Rule {
     let survive, born, numConditions: Int
 }
 
-func makeRule(ruleString: String) -> Rule {
-    let components = ruleString.componentsSeparatedByString("/")
+func makeRule(_ ruleString: String) -> Rule {
+    let components = ruleString.components(separatedBy: "/")
 
     var survive = 0
     for c in components[0] {
-        survive += 1 << (String(c).toInt()! - 1)
+        survive += 1 << (Int(String(c))! - 1)
     }
     var born = 0
     for c in components[1] {
-        born += 1 << (String(c).toInt()! - 1)
+        born += 1 << (Int(String(c))! - 1)
     }
-    let numConditions = components[2].toInt()!
+    let numConditions = Int(components[2])!
 
     return Rule(survive: survive, born: born, numConditions: numConditions)
 }
@@ -31,41 +31,41 @@ func makeRule(ruleString: String) -> Rule {
 class CellularAutomaton {
     let width, height: Int
     let rule: Rule
-    var cells: Int[]
+    var cells: [Int]
 
     init(width: Int, height: Int, ruleString: String) {
         self.width = width
         self.height = height
         self.rule = makeRule(ruleString)
-        self.cells = Array(count: width * height, repeatedValue: 0)
+        self.cells = Array(repeating: 0, count: width * height)
 
         shuffle()
     }
 
     func shuffle() {
-        for i in 0..self.cells.count {
-            self.cells[i] = random() % 16 == 0 ? self.rule.numConditions - 1 : 0
+        for i in 0..<self.cells.count {
+            self.cells[i] = arc4random() % 16 == 0 ? self.rule.numConditions - 1 : 0
         }
     }
 
     func tick() {
-        let nextCells = Array(count: self.width * self.height, repeatedValue: 0)
+        var nextCells = Array(repeating: 0, count: width * height)
         let condMax = self.rule.numConditions - 1
 
-        func index(x: Int, y: Int) -> Int {
+        func index(_ x: Int, _ y: Int) -> Int {
             let adjustX = (x + self.width) % self.width
             let adjustY = (y + self.height) % self.height
             return adjustY * self.width + adjustX
         }
 
-        for y in 0..self.height {
-            for x in 0..self.width {
+        for y in 0..<self.height {
+            for x in 0..<self.width {
                 let indexes = [
                     (x - 1, y - 1), (x, y - 1), (x + 1, y - 1),
                     (x - 1, y    ),             (x + 1, y    ),
                     (x - 1, y + 1), (x, y + 1), (x + 1, y + 1),
                 ]
-                let count = indexes.map{ self.cells[index($0)] == condMax ? 1 : 0 }.reduce(0){ $0 + $1 }
+                let count = indexes.map{ self.cells[index($0.0, $0.1)] == condMax ? 1 : 0 }.reduce(0){ $0 + $1 }
                 let env = count == 0 ? 0 : 1 << (count - 1)
                 let idx = index(x, y)
                 let prevCond = self.cells[idx]
