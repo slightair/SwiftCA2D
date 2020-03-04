@@ -9,25 +9,25 @@
 import UIKit
 
 class ViewController: UIViewController {
-    var timer: NSTimer?
+    var timer: Timer?
     override func viewDidLoad() {
         super.viewDidLoad()
 
         let w = Int(self.view.bounds.size.width / 8)
         let h = Int(self.view.bounds.size.height / 8)
 
-        let caView = self.view as CAView
+        let caView = self.view as! CAView
         caView.automaton = CellularAutomaton(width: w, height: h, ruleString: "345/2/4")
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        self.timer = NSTimer.scheduledTimerWithTimeInterval(0.3, target: self, selector: Selector("tick"), userInfo: nil, repeats: true)
+        self.timer = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(tick), userInfo: nil, repeats: true)
     }
 
-    func tick() {
-        let caView = self.view as CAView
+    @objc func tick() {
+        let caView = self.view as! CAView
         caView.automaton!.tick()
         caView.setNeedsDisplay()
     }
