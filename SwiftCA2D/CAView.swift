@@ -1,17 +1,9 @@
-//
-//  CAView.swift
-//  SwiftCA2D
-//
-//  Created by slightair on 2014/06/05.
-//  Copyright (c) 2014年 slightair. All rights reserved.
-//
-
 import UIKit
 
 class CAView : UIView {
     let tileSize: CGFloat = 8.0
     var automaton: CellularAutomaton?
-    
+
     override func draw(_ rect: CGRect) {
         let ctx  = UIGraphicsGetCurrentContext()!
         let colorSpace = CGColorSpaceCreateDeviceCMYK()

@@ -1,11 +1,3 @@
-//
-//  ViewController.swift
-//  SwiftCA2D
-//
-//  Created by slightair on 2014/06/05.
-//  Copyright (c) 2014年 slightair. All rights reserved.
-//
-
 import UIKit
 
 class ViewController: UIViewController {

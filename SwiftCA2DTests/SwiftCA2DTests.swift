@@ -1,15 +1,6 @@
-//
-//  SwiftCA2DTests.swift
-//  SwiftCA2DTests
-//
-//  Created by slightair on 2014/06/05.
-//  Copyright (c) 2014年 slightair. All rights reserved.
-//
-
 import XCTest
 
 class SwiftCA2DTests: XCTestCase {
-    
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -27,9 +18,8 @@ class SwiftCA2DTests: XCTestCase {
     
     func testPerformanceExample() {
         // This is an example of a performance test case.
-        self.measureBlock() {
+        self.measure() {
             // Put the code you want to measure the time of here.
         }
     }
-    
 }
