@@ -7,8 +7,8 @@ class CAView : UIView {
     override func draw(_ rect: CGRect) {
         let ctx  = UIGraphicsGetCurrentContext()!
         let colorSpace = CGColorSpaceCreateDeviceCMYK()
-        let horizontalTiles = self.bounds.size.width / tileSize
-        let verticalTiles = self.bounds.size.height / tileSize
+        let horizontalTiles = ceil(self.bounds.size.width / tileSize)
+        let verticalTiles = ceil(self.bounds.size.height / tileSize)
         let numConditions = automaton!.rule.numConditions
         let cells = automaton!.cells
 

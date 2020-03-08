@@ -5,8 +5,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let w = Int(self.view.bounds.size.width / 8)
-        let h = Int(self.view.bounds.size.height / 8)
+        let w = Int(ceil(self.view.bounds.size.width / 8.0))
+        let h = Int(ceil(self.view.bounds.size.height / 8.0))
 
         let caView = self.view as! CAView
         caView.automaton = CellularAutomaton(width: w, height: h, ruleString: "345/2/4")
